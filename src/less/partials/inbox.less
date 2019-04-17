@@ -1,0 +1,103 @@
+.inbox {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 8px;
+  margin: auto 10%;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  &__mail {
+    &--lists {
+      position: relative;
+    }
+    &--mails {
+      height: 80vh;
+      overflow-y: scroll;
+      .mail {
+        margin: auto 10%;
+        padding: 10px;
+        border: 1px solid @secondary;
+        border-radius: 8px;
+        cursor: pointer;
+        .easeOut(0.5s);
+        &.active {
+          color: @white;
+          background: @secondary;
+        }
+        &:hover {
+          color: @white;
+          background: @secondary;
+          border-left: 2px solid @primary;
+        }
+        header {
+          display: flex;
+          justify-content: space-between;
+          position: relative;
+        }
+        &__sender {
+          &--pic {
+            position: relative;
+            img {
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+            }
+          }
+        }
+        &__body {
+          padding: 20px;
+        }
+      }
+    }
+    &--search {
+      .inline {
+        display: flex;
+        input[type="search"] {
+          width: 100%;
+          position: relative;
+          height: 35px;
+          font-family: @font-family, sans-serif;
+          border: 1px solid @primary;
+          margin-right: 15px;
+        }
+      }
+    }
+    &--item {
+      border: 1px solid @primary;
+      padding: 10px;
+      margin-left: 20px;
+      header {
+        margin: auto 10%;
+        display: flex;
+        justify-content: space-between;
+        @media (max-width: 768px) {
+          display: block;
+          .receiver__actions {
+            display: inline-block;
+          }
+        }
+
+        .sender {
+          &__address {
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+          }
+          &__pic {
+            float: left;
+            margin-right: 15px;
+            img {
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+            }
+          }
+        }
+        .receiver__actions {
+          position: relative;
+        }
+      }
+    }
+  }
+}

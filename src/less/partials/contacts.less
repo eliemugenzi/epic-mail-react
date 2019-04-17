@@ -1,0 +1,35 @@
+.contacts {
+  margin: auto 10%;
+  &__list {
+    border: 1px solid @primary;
+    padding: 15px;
+    &--item {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+      border: 1px solid @secondary;
+      margin: 10px 10%;
+      border-radius: 4px;
+      display: flex;
+      height: 60px;
+      cursor: pointer;
+      .easeOut(0.5s);
+      &:hover {
+        background: @secondary;
+        color: @white;
+        .easeOut(0.5s);
+      }
+
+      &-picture {
+        margin-right: 20px;
+        margin-left: 20px;
+        position: relative;
+        transform: translateY(10px);
+        img {
+          border: 1px solid @secondary;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

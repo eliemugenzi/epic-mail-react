@@ -1,9 +1,18 @@
-import { GET_ERRORS, FETCH_USERS, FETCH_USER } from "../actions/types";
+import {
+  GET_ERRORS,
+  FETCH_USERS,
+  FETCH_USER,
+  GET_INFO,
+  LOGGED_IN,
+  LOGGED_OUT
+} from "../actions/types";
 
 const initialState = {
   users: [],
   error: "",
-  user: {}
+  user: {},
+  info: "",
+  loggedIn: false
 };
 
 export default (state = initialState, action) => {
@@ -13,19 +22,31 @@ export default (state = initialState, action) => {
         ...state,
         error: action.payload
       };
-      break;
     case FETCH_USERS:
       return {
         ...state,
         users: action.payload
       };
-      break;
     case FETCH_USER:
       return {
         ...state,
         user: action.payload
       };
-      break;
+    case GET_INFO:
+      return {
+        ...state,
+        info: action.payload
+      };
+    case LOGGED_IN:
+      return {
+        ...state,
+        loggedIn: true
+      };
+    case LOGGED_OUT:
+      return {
+        ...state,
+        loggedIn: false
+      };
     default:
       return state;
   }

@@ -1,0 +1,36 @@
+.groupchats {
+  margin: auto 10%;
+  &__box {
+    position: relative;
+    border: 1px solid @primary;
+  }
+  &__list {
+    height: 85vh;
+    overflow-y: scroll;
+  }
+  &__message {
+    padding: 5px;
+    margin: 10px 10%;
+    border: 1px solid @secondary;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+    &--body {
+      padding: 4px;
+    }
+    &--pic {
+      position: relative;
+      img {
+        width: 40px;
+        height: 40px;
+        border: 1px solid @secondary;
+        border-radius: 50%;
+      }
+    }
+  }
+}

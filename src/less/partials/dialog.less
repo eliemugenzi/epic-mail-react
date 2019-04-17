@@ -1,0 +1,37 @@
+.dialog {
+  border: 1px solid @primary;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75);
+  padding: 10px 50px;
+  border-radius: 5px;
+  animation: fadeUp 2s ease-in-out;
+  z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  text-align: center;
+
+  &__header {
+    margin: auto 10%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__close {
+    color: @dark;
+  }
+
+  &__spinner {
+    img {
+      width: 55px;
+      height: 55px;
+      border: 1px solid @secondary;
+    }
+  }
+
+  &__body {
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+}

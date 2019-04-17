@@ -1,12 +1,13 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import Nav from "./Nav";
+import Sidebar from "./Sidebar";
 
 const Header = ({ title }) => {
   return (
-    <Helmet>
-      <meta charSet="utf-8" />
-      <title>{title}</title>
-    </Helmet>
+    <div>
+      <Nav />
+      <Sidebar />
+    </div>
   );
 };
 
