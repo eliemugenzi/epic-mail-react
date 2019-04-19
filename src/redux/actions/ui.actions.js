@@ -1,7 +1,6 @@
 import { TOGGLE_SLIDE, STOP_LOADING, CLOSE_SLIDE } from "./types";
 
 export const toggleSlide = () => {
-  console.log("clicked, from action");
   return {
     type: TOGGLE_SLIDE
   };

@@ -1,4 +1,4 @@
-import { GET_GROUPS, SEARCH_GROUP } from "../actions/types";
+import { GET_GROUPS, SEARCH_GROUP, FETCH_MEMBERS } from "../actions/types";
 
 const initialState = {
   groups: [],

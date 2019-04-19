@@ -7,8 +7,8 @@ class SingleMessage extends Component {
     this.state = {
       senderNames: "",
       receiverNames: "",
-      senderEmail:"",
-      receiverEmail:""
+      senderEmail: "",
+      receiverEmail: ""
     };
   }
 
@@ -28,7 +28,7 @@ class SingleMessage extends Component {
         const user = res.data[0];
         this.setState({
           senderNames: `${user.firstname} ${user.lastname}`,
-          senderEmail:user.email
+          senderEmail: user.email
         });
       })
       .catch(err => console.log(err));
@@ -39,7 +39,7 @@ class SingleMessage extends Component {
         const user = res.data[0];
         this.setState({
           receiverNames: `${user.firstname} ${user.lastname}`,
-          receiverEmail:user.email
+          receiverEmail: user.email
         });
       });
   };
@@ -53,7 +53,8 @@ class SingleMessage extends Component {
     }
     const { currentMessage } = this.props.message;
     const date = new Date(currentMessage.createdon);
-    const newDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()},${date.getHours()}:${date.getMinutes()}`;
+    const newDate = `${date.getDate()}-${date.getMonth() +
+      1}-${date.getFullYear()},${date.getHours()}:${date.getMinutes()}`;
     return (
       <div className="inbox__mail--item">
         <header>
@@ -66,7 +67,8 @@ class SingleMessage extends Component {
             </div>
             <div className="sender__details">
               <span>
-                From:<strong>{this.state.senderNames}</strong>{"<"}
+                From:<strong>{this.state.senderNames}</strong>
+                {"<"}
                 <i>{this.state.senderEmail}</i> {">"}
               </span>{" "}
               <br />
@@ -81,13 +83,13 @@ class SingleMessage extends Component {
             </div>
           </div>
           <div className="receiver__actions">
-            <a href="#" className="btn__small btn-white">
+            <a href="/#" className="btn__small btn-white">
               <i className="fa fa-reply" />
             </a>
-            <a href="#" className="btn__small btn-white">
+            <a href="/#" className="btn__small btn-white">
               <i className="fa fa-step-backward" />
             </a>
-            <a href="#" className="btn__small btn-white">
+            <a href="/#" className="btn__small btn-white">
               <i className="fa fa-trash" />
             </a>
           </div>

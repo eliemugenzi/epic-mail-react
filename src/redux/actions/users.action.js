@@ -11,6 +11,23 @@ import {
 
 export const getUsers = () => dispatch => {
   const USERS_URL = "http://elie-epic-mail.herokuapp.com/api/v2/users";
+
+  fetch(`http://cors-anywhere.herokuapp.com/${USERS_URL}`)
+    .then(res => res.json())
+    .then(res => {
+      dispatch({
+        type: FETCH_USERS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload:
+          "Unable to connect to the server,check your internet connection and try again..."
+      });
+    });
+  /*
   axios
     .get(`http://cors-anywhere.herokuapp.com/${USERS_URL}`)
     .then(res => {
@@ -22,7 +39,13 @@ export const getUsers = () => dispatch => {
         type: STOP_LOADING
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: "Unable to connect to the server!"
+      });
+    });
+    */
 };
 
 export const getSingleUser = id => dispatch => {
@@ -106,6 +129,11 @@ export const login = user => dispatch => {
       dispatch({
         type: STOP_LOADING
       });
+      dispatch({
+        type: GET_ERRORS,
+        payload:
+          "You're offline,check your internet connection and try again..."
+      });
       console.log(err);
     });
 };
@@ -148,6 +176,10 @@ export const createAccount = user => dispatch => {
       console.log("error");
       dispatch({
         type: STOP_LOADING
+      });
+      dispatch({
+        type: GET_ERRORS,
+        payload: "Unable to connect to the server!"
       });
       console.log(err);
     });

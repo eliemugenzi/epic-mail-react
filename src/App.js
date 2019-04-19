@@ -14,9 +14,18 @@ import Register from "./components/layouts/register";
 import Alert from "./components/widgets/Alert";
 import Inbox from "./components/layouts/inbox";
 import Compose from "./components/layouts/compose";
+import Drafts from "./components/layouts/Drafts";
+import SentMails from "./components/layouts/SentMails";
+import Contacts from "./components/layouts/Contacts";
+import Contact from "./components/layouts/Contact";
+import Groups from "./components/layouts/Groups";
+import GroupMembers from "./components/layouts/GroupMembers";
+import GroupMember from "./components/layouts/GroupMember";
+import GroupMessages from "./components/layouts/GroupMessages";
+import GroupSettings from "./components/layouts/GroupSettings";
 
 const alertOptions = {
-  timeout: 3000,
+  timeout: 5000,
   position: "top center",
   transition: "scale"
 };
@@ -36,6 +45,27 @@ class App extends Component {
                 <Route exact path="/auth/register" component={Register} />
                 <Route exact path="/messages/inbox" component={Inbox} />
                 <Route exact path="/messages/new" component={Compose} />
+                <Route exact path="/messages/drafts" component={Drafts} />
+                <Route exact path="/messages/sent" component={SentMails} />
+                <Route exact path="/contacts" component={Contacts} />
+                <Route exact path="/contacts/:id" component={Contact} />
+                <Route exact path="/groups" component={Groups} />
+                <Route exact path="/groups/:id/" component={GroupMembers} />
+                <Route
+                  exact
+                  path="/groups/:groupId/members/:memberId"
+                  component={GroupMember}
+                />
+                <Route
+                  exact
+                  path="/groups/:id/messages"
+                  component={GroupMessages}
+                />
+                <Route
+                  exact
+                  path="/groups/:id/settings"
+                  component={GroupSettings}
+                />
               </Switch>
             </Fragment>
           </Router>

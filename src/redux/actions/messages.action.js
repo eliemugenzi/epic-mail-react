@@ -80,6 +80,9 @@ export const getMessage = id => dispatch => {
 
 export const sendMessage = message => dispatch => {
   const MSG_URL = "http://elie-epic-mail.herokuapp.com/api/v2/messages";
+  dispatch({
+    type:LOADING
+  })
   fetch(`http://cors-anywhere.herokuapp.com/${MSG_URL}`, {
     method: "POST",
     headers: new Headers({
@@ -90,6 +93,9 @@ export const sendMessage = message => dispatch => {
   })
     .then(res => res.json())
     .then(res => {
+      dispatch({
+        type:STOP_LOADING
+      })
       if (res.status === 201) {
         dispatch({
           type: GET_INFO,
@@ -101,6 +107,11 @@ export const sendMessage = message => dispatch => {
           payload: res.error
         });
       }
+    }).catch(err => {
+      dispatch({
+        type:STOP_LOADING
+      });
+      console.log(err);
     });
 };
 

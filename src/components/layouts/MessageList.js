@@ -6,7 +6,7 @@ import { getMessages } from "../../redux/actions/messages.action";
 // Defined components import...
 import SearchMessage from "./SearchMessage";
 import MessageResults from "./MessageResults";
-import Message from "./Message";
+import Message from "../partials/Message";
 import Spinner from "../widgets/Spinner";
 
 class MessageList extends Component {
