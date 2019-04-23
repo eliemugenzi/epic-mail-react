@@ -37,7 +37,7 @@ class Sidebar extends Component {
               <Link to="/messages/sent">Sent Mails</Link>
             </li>
             <li>
-              <Link to="/messages/draft">Drafts</Link>
+              <Link to="/messages/drafts">Drafts</Link>
             </li>
             <li>
               <Link to="/groups">Groups</Link>

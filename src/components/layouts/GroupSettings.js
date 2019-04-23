@@ -11,6 +11,26 @@ class GroupSettings extends Component {
     };
   }
 
+  componentDidMount = () => {
+    const { id } = this.props.match.params;
+    const GROUP_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}`;
+    fetch(`https://cors-anywhere.herokuapp.com/${GROUP_URL}`, {
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
+      })
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === 200) {
+          this.setState({
+            name: res.data[0].name
+          });
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   rename = e => {
     e.preventDefault();
     this.props.renameGroup({

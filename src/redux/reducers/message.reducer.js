@@ -3,14 +3,16 @@ import {
   GET_DRAFTS,
   GET_SENT_MAILS,
   SEARCH_MESSAGE,
-  SET_CURR_MESSAGE
+  SET_CURR_MESSAGE,
+  SET_CURR_DRAFT
 } from "../actions/types";
 const initialState = {
   messages: [],
   sentMails: [],
   drafts: [],
   searchResults: [],
-  currentMessage: {}
+  currentMessage: {},
+  currentDraft: {}
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +41,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentMessage: action.payload
+      };
+    case SET_CURR_DRAFT:
+      return {
+        ...state,
+        currentDraft: action.payload
       };
     default:
       return state;

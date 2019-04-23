@@ -15,7 +15,7 @@ export const createGroup = group => dispatch => {
     type: LOADING
   });
 
-  fetch(`http://cors-anywhere.herokuapp.com/${CREATE_GRP_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${CREATE_GRP_URL}`, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export const getGroups = () => dispatch => {
     type: LOADING
   });
 
-  fetch(`http://cors-anywhere.herokuapp.com/${GET_GRP_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${GET_GRP_URL}`, {
     headers: new Headers({
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
@@ -102,7 +102,7 @@ export const sendGroupMessage = (id, message) => dispatch => {
     type: LOADING
   });
 
-  fetch(`http://cors-anywhere.herokuapp.com/${SEND_MSG_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${SEND_MSG_URL}`, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -147,7 +147,7 @@ export const getGroupMessages = id => dispatch => {
     type: LOADING
   });
 
-  fetch(`http://cors-anywhere.herokuapp.com/${GRP_MSG_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${GRP_MSG_URL}`, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -190,7 +190,7 @@ export const renameGroup = (id, groupInfo) => dispatch => {
     type: LOADING
   });
 
-  fetch(`http://cors-anywhere.herokuapp.com/${RENAME_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${RENAME_URL}`, {
     method: "PATCH",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -225,7 +225,7 @@ export const renameGroup = (id, groupInfo) => dispatch => {
 export const deleteGroup = id => dispatch => {
   const DELETE_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}`;
 
-  fetch(`http://cors-anywhere.herokuapp.com/${DELETE_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${DELETE_URL}`, {
     method: "DELETE",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -259,7 +259,7 @@ export const deleteGroup = id => dispatch => {
 export const addUser = (id, user) => dispatch => {
   const ADDUSER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}/users`;
 
-  fetch(`http://cors-anywhere.herokuapp.com/${ADDUSER_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${ADDUSER_URL}`, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -287,7 +287,7 @@ export const addUser = (id, user) => dispatch => {
 export const removeUser = (id, userId) => dispatch => {
   const REMOVEUSER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}/users/${userId}`;
 
-  fetch(`http://cors-anywhere.herokuapp.com/${REMOVEUSER_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${REMOVEUSER_URL}`, {
     method: "DELETE",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -314,7 +314,7 @@ export const removeUser = (id, userId) => dispatch => {
 export const searchGroup = keyword => dispatch => {
   const SEARCH_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/search/?q=${keyword}`;
 
-  fetch(`http://cors-anywhere.herokuapp.com/${SEARCH_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${SEARCH_URL}`, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -333,7 +333,7 @@ export const searchGroup = keyword => dispatch => {
 
 export const getGroupMembers = id => dispatch => {
   const GRP_MEMBERS_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}/users`;
-  fetch(`http://cors-anywhere.herokuapp.com/${GRP_MEMBERS_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${GRP_MEMBERS_URL}`, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",

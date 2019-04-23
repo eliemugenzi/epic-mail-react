@@ -12,7 +12,7 @@ import {
 export const getUsers = () => dispatch => {
   const USERS_URL = "http://elie-epic-mail.herokuapp.com/api/v2/users";
 
-  fetch(`http://cors-anywhere.herokuapp.com/${USERS_URL}`)
+  fetch(`https://cors-anywhere.herokuapp.com/${USERS_URL}`)
     .then(res => res.json())
     .then(res => {
       dispatch({
@@ -27,31 +27,13 @@ export const getUsers = () => dispatch => {
           "Unable to connect to the server,check your internet connection and try again..."
       });
     });
-  /*
-  axios
-    .get(`http://cors-anywhere.herokuapp.com/${USERS_URL}`)
-    .then(res => {
-      dispatch({
-        type: FETCH_USERS,
-        payload: res.data.data
-      });
-      dispatch({
-        type: STOP_LOADING
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: "Unable to connect to the server!"
-      });
-    });
-    */
+  
 };
 
 export const getSingleUser = id => dispatch => {
   const USER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/users/${id}`;
   axios
-    .get(`http://cors-anywhere.herokuapp.com/${USER_URL}`)
+    .get(`https://cors-anywhere.herokuapp.com/${USER_URL}`)
     .then(res => {
       dispatch({
         type: STOP_LOADING
@@ -72,35 +54,9 @@ export const login = user => dispatch => {
   dispatch({
     type: LOADING
   });
-  /*
-  axios
-    .post(`http://cors-anywhere.herokuapp.com/${LOGIN_URL}`, user)
-    .then(res => {
-      dispatch({
-        type: STOP_LOADING
-      });
-      if (res.data.status === 200) {
-        localStorage.setItem("ACCESS_TOKEN", res.data.data[0].token);
-        dispatch(loggedIn());
-      } else {
-        dispatch({
-          type: GET_ERRORS,
-          payload: res.data.error
-        });
-      }
-    })
-    .catch(err => {
-      dispatch({
-        type:GET_ERRORS,
-        payload:"Login failed!"
-      })
-      dispatch({
-        type:STOP_LOADING
-      })
-    });
-    */
+ 
 
-  fetch(`http://cors-anywhere.herokuapp.com/${LOGIN_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${LOGIN_URL}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -144,7 +100,7 @@ export const createAccount = user => dispatch => {
     type: LOADING
   });
 
-  fetch(`http://cors-anywhere.herokuapp.com/${SIGNUP_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${SIGNUP_URL}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -173,7 +129,6 @@ export const createAccount = user => dispatch => {
       }
     })
     .catch(err => {
-      console.log("error");
       dispatch({
         type: STOP_LOADING
       });

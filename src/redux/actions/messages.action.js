@@ -9,15 +9,16 @@ import {
   GET_SENT_MAILS,
   LOADING,
   STOP_LOADING,
-  SET_CURR_MESSAGE
+  SET_CURR_MESSAGE,
+  SET_CURR_DRAFT
 } from "./types";
 
 export const getMessages = () => dispatch => {
   const MESSAGES_URL = "http://elie-epic-mail.herokuapp.com/api/v2/messages";
   dispatch({
-    type:LOADING
-  })
-  fetch(`http://cors-anywhere.herokuapp.com/${MESSAGES_URL}`, {
+    type: LOADING
+  });
+  fetch(`https://cors-anywhere.herokuapp.com/${MESSAGES_URL}`, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -27,26 +28,24 @@ export const getMessages = () => dispatch => {
     .then(res => res.json())
     .then(res => {
       dispatch({
-        type:STOP_LOADING
-      })
+        type: STOP_LOADING
+      });
       if (res.status === 200) {
         dispatch({
           type: FETCH_MESSAGES,
           payload: res.data
         });
-      }
-      else{
+      } else {
         dispatch({
-          type:GET_ERRORS,
-          payload:res.error
-        })
+          type: GET_ERRORS,
+          payload: res.error
+        });
       }
-      
     })
     .catch(err => {
       dispatch({
-        type:STOP_LOADING
-      })
+        type: STOP_LOADING
+      });
       console.log(err);
     });
 };
@@ -54,7 +53,7 @@ export const getMessages = () => dispatch => {
 export const getMessage = id => dispatch => {
   const MESSAGE_URL = `http://elie-epic-mail.herokuapp.com/api/v2/messages/${id}`;
 
-  fetch(`http://cors-anywhere.herokuapp.com/${MESSAGE_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${MESSAGE_URL}`, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -81,9 +80,9 @@ export const getMessage = id => dispatch => {
 export const sendMessage = message => dispatch => {
   const MSG_URL = "http://elie-epic-mail.herokuapp.com/api/v2/messages";
   dispatch({
-    type:LOADING
-  })
-  fetch(`http://cors-anywhere.herokuapp.com/${MSG_URL}`, {
+    type: LOADING
+  });
+  fetch(`https://cors-anywhere.herokuapp.com/${MSG_URL}`, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -94,8 +93,8 @@ export const sendMessage = message => dispatch => {
     .then(res => res.json())
     .then(res => {
       dispatch({
-        type:STOP_LOADING
-      })
+        type: STOP_LOADING
+      });
       if (res.status === 201) {
         dispatch({
           type: GET_INFO,
@@ -107,9 +106,10 @@ export const sendMessage = message => dispatch => {
           payload: res.error
         });
       }
-    }).catch(err => {
+    })
+    .catch(err => {
       dispatch({
-        type:STOP_LOADING
+        type: STOP_LOADING
       });
       console.log(err);
     });
@@ -118,7 +118,7 @@ export const sendMessage = message => dispatch => {
 export const searchMessages = keyword => dispatch => {
   const MSG_URL = `http://elie-epic-mail.herokuapp.com/api/v2/messages/search/?q=${keyword}`;
 
-  fetch(`http://cors-anywhere.herokuapp.com/${MSG_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${MSG_URL}`, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -138,8 +138,10 @@ export const searchMessages = keyword => dispatch => {
 export const getDrafts = () => dispatch => {
   const DRAFTS_URL =
     "http://elie-epic-mail.herokuapp.com/api/v2/messages/draft";
-
-  fetch(`http://cors-anywhere.herokuapp.com/${DRAFTS_URL}`, {
+  dispatch({
+    type: LOADING
+  });
+  fetch(`https://cors-anywhere.herokuapp.com/${DRAFTS_URL}`, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -149,18 +151,29 @@ export const getDrafts = () => dispatch => {
     .then(res => res.json())
     .then(res => {
       dispatch({
+        type: STOP_LOADING
+      });
+      dispatch({
         type: GET_DRAFTS,
         payload: res.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch({
+        type:STOP_LOADING
+      })
+      dispatch({
+        type:GET_ERRORS,
+        payload:"Unable to connect to the server,check your internet connection and try again!"
+      })
+    });
 };
 
 export const getSentMails = () => dispatch => {
   const SENT_MSG_URL =
     "http://elie-epic-mail.herokuapp.com/api/v2/messages/sent";
 
-  fetch(`http://cors-anywhere.herokuapp.com/${SENT_MSG_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${SENT_MSG_URL}`, {
     method: "GET",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -181,7 +194,7 @@ export const saveMessage = message => dispatch => {
   const SAVE_MSG_URL =
     "http://elie-epic-mail.herokuapp.com/api/v2/messages/draft";
 
-  fetch(`http://cors-anywhere.herokuapp.com/${SAVE_MSG_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${SAVE_MSG_URL}`, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -208,7 +221,7 @@ export const saveMessage = message => dispatch => {
 export const deleteMessage = id => dispatch => {
   const DELETE_MSG_URL = `http://elie-epic-mail.herokuapp.com/api/v2/messages/${id}`;
 
-  fetch(`http://cors-anywhere.herokuapp.com/${DELETE_MSG_URL}`, {
+  fetch(`https://cors-anywhere.herokuapp.com/${DELETE_MSG_URL}`, {
     method: "DELETE",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -234,6 +247,13 @@ export const deleteMessage = id => dispatch => {
 export const setCurrentMessage = message => dispatch => {
   dispatch({
     type: SET_CURR_MESSAGE,
-    payload:message
-  })
-}
+    payload: message
+  });
+};
+
+export const setCurrentDraft = message => dispatch => {
+  dispatch({
+    type: SET_CURR_DRAFT,
+    payload: message
+  });
+};

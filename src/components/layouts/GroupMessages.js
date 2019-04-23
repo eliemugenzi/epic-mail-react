@@ -21,7 +21,7 @@ class GroupMessages extends Component {
   componentWillMount = () => {
     const { id } = this.props.match.params;
     const GROUP_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}`;
-    fetch(`http://cors-anywhere.herokuapp.com/${GROUP_URL}`, {
+    fetch(`https://cors-anywhere.herokuapp.com/${GROUP_URL}`, {
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
@@ -36,7 +36,7 @@ class GroupMessages extends Component {
           });
 
           const MESSAGE_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}/messages`;
-          fetch(`http://cors-anywhere.herokuapp.com/${MESSAGE_URL}`, {
+          fetch(`https://cors-anywhere.herokuapp.com/${MESSAGE_URL}`, {
             headers: new Headers({
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
@@ -64,7 +64,7 @@ class GroupMessages extends Component {
     });
     const { id } = this.props.match.params;
     const MESSAGE_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}/messages`;
-    fetch(`http://cors-anywhere.herokuapp.com/${MESSAGE_URL}`, {
+    fetch(`https://cors-anywhere.herokuapp.com/${MESSAGE_URL}`, {
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`

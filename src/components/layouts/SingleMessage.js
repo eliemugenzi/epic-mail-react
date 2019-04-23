@@ -22,7 +22,7 @@ class SingleMessage extends Component {
       currentMessage.receiverid
     }`;
 
-    fetch(`http://cors-anywhere.herokuapp.com/${SENDER_URL}`)
+    fetch(`https://cors-anywhere.herokuapp.com/${SENDER_URL}`)
       .then(res => res.json())
       .then(res => {
         const user = res.data[0];
@@ -33,7 +33,7 @@ class SingleMessage extends Component {
       })
       .catch(err => console.log(err));
 
-    fetch(`http://cors-anywhere.herokuapp.com/${RECEIVER_URL}`)
+    fetch(`https://cors-anywhere.herokuapp.com/${RECEIVER_URL}`)
       .then(res => res.json())
       .then(res => {
         const user = res.data[0];

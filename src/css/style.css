@@ -517,6 +517,14 @@ form .field textarea {
 .groupchats__box {
   position: relative;
   border: 1px solid #5b00d0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+@media (max-width: 768px) {
+  .groupchats__box {
+    grid-template-columns: 1fr;
+  }
 }
 .groupchats__list {
   height: 85vh;

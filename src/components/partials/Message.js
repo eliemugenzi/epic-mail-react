@@ -18,7 +18,7 @@ class Message extends Component {
     const { senderid, receiverid } = this.props.data;
     const SENDER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/users/${senderid}`;
     const RECEIVER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/users/${receiverid}`;
-    fetch(`http://cors-anywhere.herokuapp.com/${SENDER_URL}`)
+    fetch(`https://cors-anywhere.herokuapp.com/${SENDER_URL}`)
       .then(res => res.json())
       .then(res => {
         const user = res.data[0];
@@ -29,7 +29,7 @@ class Message extends Component {
       })
       .catch(err => console.log(err));
 
-    fetch(`http://cors-anywhere.herokuapp.com/${RECEIVER_URL}`)
+    fetch(`https://cors-anywhere.herokuapp.com/${RECEIVER_URL}`)
       .then(res => res.json())
       .then(res => {
         const user = res.data[0];
@@ -43,7 +43,8 @@ class Message extends Component {
   render() {
     const { data } = this.props;
     const date = new Date(data.createdon);
-    const newDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    const newDate = `${date.getDate()}-${date.getMonth() +
+      1}-${date.getFullYear()}`;
     return (
       <div
         className="mail"

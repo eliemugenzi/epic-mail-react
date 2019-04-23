@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 import { login } from "../../redux/actions/users.action";
 
 import Spinner from "../widgets/Spinner";
@@ -10,8 +11,21 @@ class Index extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      redirect:false
     };
+  }
+
+  componentDidMount = () => {
+    if (this.props.user.loggedIn) {
+      this.setState({ redirect: true });
+    }
+  }
+
+  componentDidUpdate=prevProps=>{
+    if (this.props.user.loggedIn) {
+      this.setState({ redirect: true });  
+    }
   }
 
   login = e => {
@@ -22,6 +36,9 @@ class Index extends Component {
     });
   };
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/messages/inbox" />;
+    }
     return (
       <section className="showcase">
         <div className="showcase__container">

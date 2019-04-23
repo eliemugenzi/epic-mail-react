@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import GroupmemberItem from "../partials/GroupMemberItem";
+import GroupUser from "../partials/GroupUser";
+import GroupMemberItem from "../partials/GroupMemberItem";
 
 export default class GroupMembers extends Component {
   constructor(props) {
@@ -9,13 +11,24 @@ export default class GroupMembers extends Component {
     this.state = {
       exists: false,
       groupData: {},
-      groupMembers:[]
+      groupMembers: [],
+      users: [],
+      loaded: false
     };
   }
   componentWillMount = () => {
+    const USERS_URL = "http://elie-epic-mail.herokuapp.com/api/v2/users";
+    fetch(`https://cors-anywhere.herokuapp.cpm/${USERS_URL}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          users: res.data
+        });
+      });
+
     const { id } = this.props.match.params;
     const GROUP_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}`;
-    fetch(`http://cors-anywhere.herokuapp.com/${GROUP_URL}`, {
+    fetch(`https://cors-anywhere.herokuapp.com/${GROUP_URL}`, {
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
@@ -30,6 +43,20 @@ export default class GroupMembers extends Component {
           });
 
           const MEMBER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}/users`;
+          fetch(`https://cors-anywhere.herokuapp.com/${MEMBER_URL}`, {
+            headers: new Headers({
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
+            })
+          })
+            .then(res => res.json())
+            .then(res => {
+              this.setState({
+                groupMembers: res.data,
+                loaded: true
+              });
+            })
+            .catch(err => console.log(err));
         }
       })
       .catch(err => console.log(err));
@@ -44,54 +71,26 @@ export default class GroupMembers extends Component {
     }
     return (
       <section className="members">
-        <form action="">
-          <div className="field">
-            <label htmlFor="">Search for a contact to add</label>
-            <input type="search" name="q" id="q" />
+        <div className="members__all">
+          <h4 className="text-center">All users</h4>
+          {this.state.users.map(user => (
+            <GroupUser user={user} groupId={this.props.match.params.id} />
+          ))}
+        </div>
+        <div className="members__group">
+          <h2 className="text-center">
+            Members of this group <strong>{this.state.groupData.name}</strong>
+          </h2>
+          <div className="members__list">
+            {!this.state.groupMembers.length && this.state.loaded ? (
+              <div>
+                <p className="text-center">No Group members yet!</p>
+              </div>
+            ) : null}
+            {this.state.groupMembers.map(member => (
+              <GroupMemberItem member={member} />
+            ))}
           </div>
-          <div className="members__result">
-            <div className="members__result--item">
-              <div className="members__result--item-picture">
-                <img
-                  src="https://www.bing.com/th?id=OIP.E06jGgBh0Dxx_uIsfGyscAHaHa&w=212&h=212&c=7&o=5&pid=1.7"
-                  alt=""
-                />
-              </div>
-              <div className="members__reult--item-name">
-                <h4>Ineza Alphonsine</h4>
-              </div>
-              <div className="members__result--item-action">
-                <a href="" className="btn btn-secondary" id="watafakamwa">
-                  <i className="fa fa-plus" /> &nbsp; Add
-                </a>
-              </div>
-            </div>
-            <div className="members__result--item">
-              <div className="members__result--item-picture">
-                <img
-                  src="https://www.bing.com/th?id=OIP.E06jGgBh0Dxx_uIsfGyscAHaHa&w=212&h=212&c=7&o=5&pid=1.7"
-                  alt=""
-                />
-              </div>
-              <div className="members__reult--item-name">
-                <h4>Ineza Alphonsine</h4>
-              </div>
-              <div className="members__result--item-action">
-                <a href="" className="btn btn-secondary">
-                  <i className="fa fa-plus" /> &nbsp; Add
-                </a>
-              </div>
-            </div>
-          </div>
-        </form>
-        <h2 className="text-center">
-          Members of this group <strong>{this.state.groupData.name}</strong>
-        </h2>
-        <div className="members__list">
-          <GroupmemberItem />
-          <GroupmemberItem />
-          <GroupmemberItem />
-          <GroupmemberItem />
         </div>
       </section>
     );

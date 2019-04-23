@@ -13,7 +13,7 @@ export default class GroupMessageItem extends Component {
     const SENDER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/users/${
       data.senderid
     }`;
-    fetch(`http://cors-anywhere.herokuapp.com/${SENDER_URL}`)
+    fetch(`https://cors-anywhere.herokuapp.com/${SENDER_URL}`)
       .then(res => res.json())
       .then(res => {
         if (res.status === 200) {

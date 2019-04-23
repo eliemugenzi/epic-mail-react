@@ -14,7 +14,7 @@ export default class GroupMember extends Component {
     const { groupId, memberId } = this.props.match.params;
     const GROUP_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${groupId}`;
 
-    fetch(`http://cors-anywhere.herokuapp.com/${GROUP_URL}`, {
+    fetch(`https://cors-anywhere.herokuapp.com/${GROUP_URL}`, {
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
@@ -28,7 +28,7 @@ export default class GroupMember extends Component {
             groupExists: true
           });
           const MEMBER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${groupId}/users/${memberId}`;
-          fetch(`http://cors-anywhere.herokuapp.com/${MEMBER_URL}`, {
+          fetch(`https://cors-anywhere.herokuapp.com/${MEMBER_URL}`, {
             headers: new Headers({
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`

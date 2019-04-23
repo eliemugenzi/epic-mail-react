@@ -29,3 +29,4 @@ export const STOP_LOADING = "STOP_LOADING";
 export const CLOSE_SLIDE = "CLOSE_SLIDE";
 
 export const SET_CURR_MESSAGE = "SET_CURR_MESSAGE";
+export const SET_CURR_DRAFT = "SET_CURR_DRAFT";
