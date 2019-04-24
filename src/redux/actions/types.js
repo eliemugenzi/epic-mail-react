@@ -14,6 +14,7 @@ export const GET_SENT_MAILS = "GET_SENT_MAILS";
 //User related actions
 export const LOGGED_IN = "LOGGED_IN";
 export const LOGGED_OUT = "LOGGED_OUT";
+export const GET_CURRENT_USER = "GET_CURRENT_USER";
 
 // Group related action types
 export const GET_GROUPS = "GET_GROUPS";

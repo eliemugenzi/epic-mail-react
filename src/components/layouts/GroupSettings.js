@@ -33,7 +33,8 @@ class GroupSettings extends Component {
 
   rename = e => {
     e.preventDefault();
-    this.props.renameGroup({
+    const { id } = this.props.match.params;
+    this.props.renameGroup(id, {
       name: this.state.name
     });
   };

@@ -1,0 +1,19 @@
+.grp-settings{
+    margin:auto 10%;
+    &__container{
+        padding: 15px;
+        border:1px solid @primary;
+    }
+    &__grid{
+        display:grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-gap: 10px;
+        @media(max-width:768px){
+            grid-template-columns: 1fr;
+        }
+        &--item{
+            margin: auto 10%;
+            position: relative;
+        }
+    }
+}

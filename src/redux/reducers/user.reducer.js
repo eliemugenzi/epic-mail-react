@@ -4,7 +4,8 @@ import {
   FETCH_USER,
   GET_INFO,
   LOGGED_IN,
-  LOGGED_OUT
+  LOGGED_OUT,
+  GET_CURRENT_USER
 } from "../actions/types";
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   error: "",
   user: {},
   info: "",
-  loggedIn: false
+  loggedIn: false,
+  currentUser: {}
 };
 
 export default (state = initialState, action) => {
@@ -46,6 +48,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loggedIn: false
+      };
+    case GET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload
       };
     default:
       return state;

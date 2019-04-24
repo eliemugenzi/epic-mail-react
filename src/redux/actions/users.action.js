@@ -6,7 +6,8 @@ import {
   LOGGED_IN,
   LOGGED_OUT,
   STOP_LOADING,
-  LOADING
+  LOADING,
+  GET_CURRENT_USER
 } from "./types";
 
 export const getUsers = () => dispatch => {
@@ -27,7 +28,6 @@ export const getUsers = () => dispatch => {
           "Unable to connect to the server,check your internet connection and try again..."
       });
     });
-  
 };
 
 export const getSingleUser = id => dispatch => {
@@ -54,7 +54,6 @@ export const login = user => dispatch => {
   dispatch({
     type: LOADING
   });
- 
 
   fetch(`https://cors-anywhere.herokuapp.com/${LOGIN_URL}`, {
     method: "POST",
@@ -157,4 +156,44 @@ export const logOut = () => {
   return {
     type: LOGGED_OUT
   };
+};
+
+export const getCurrentUser = dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  const USER_URL = "http://elie-epic-mail.herokuapp.com/users/current";
+  fetch(`https://cors-anywhere.herokuapp.com/${USER_URL}`, {
+    headers: new Headers({
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
+    })
+  })
+    .then(res => res.json())
+    .then(res => {
+      dispatch({
+        type: STOP_LOADING
+      });
+      if (res.status === 200) {
+        dispatch({
+          type: GET_CURRENT_USER,
+          payload: res.data[0]
+        });
+      } else {
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.error
+        });
+      }
+    })
+    .catch(err => {
+      dispatch({
+        type: STOP_LOADING
+      });
+      dispatch({
+        type: GET_ERRORS,
+        payload: "You're offline, check your internet and try again!"
+      });
+    });
 };
