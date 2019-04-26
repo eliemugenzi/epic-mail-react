@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import PropTypes from "prop-types";
+import { getUsers } from "../../redux/actions/users.action";
 import GroupmemberItem from "../partials/GroupMemberItem";
 import GroupUser from "../partials/GroupUser";
 import GroupMemberItem from "../partials/GroupMemberItem";
 
-export default class GroupMembers extends Component {
+class GroupMembers extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +26,8 @@ export default class GroupMembers extends Component {
           users: res.data
         });
       });
-
+    console.log(this.state.users);
+    this.props.getUsers();
     const { id } = this.props.match.params;
     const GROUP_URL = `http://elie-epic-mail.herokuapp.com/api/v2/groups/${id}`;
     fetch(`https://cors-anywhere.herokuapp.com/${GROUP_URL}`, {
@@ -73,8 +75,12 @@ export default class GroupMembers extends Component {
       <section className="members">
         <div className="members__all">
           <h4 className="text-center">All users</h4>
-          {this.state.users.map(user => (
-            <GroupUser user={user} groupId={this.props.match.params.id} />
+          {this.props.user.users.map(user => (
+            <GroupUser
+              user={user}
+              groupId={this.props.match.params.id}
+              key={user.id}
+            />
           ))}
         </div>
         <div className="members__group">
@@ -88,7 +94,7 @@ export default class GroupMembers extends Component {
               </div>
             ) : null}
             {this.state.groupMembers.map(member => (
-              <GroupMemberItem member={member} />
+              <GroupMemberItem member={member} key={member.id} />
             ))}
           </div>
         </div>
@@ -96,3 +102,17 @@ export default class GroupMembers extends Component {
     );
   }
 }
+
+GroupMembers.propTypes = {
+  getUsers: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  user: state.user,
+  message: state.message
+});
+export default connect(
+  mapStateToProps,
+  { getUsers }
+)(GroupMembers);

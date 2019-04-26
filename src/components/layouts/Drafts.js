@@ -18,12 +18,26 @@ class Drafts extends Component {
         <div className="inbox__mail--mails">
           <h3 className="text-center">Your Drafts</h3>
           {this.props.ui.loading ? <Spinner /> : null}
-          {this.props.message.drafts.map(message => (
-            <SingleDraft data={message} />
-          ))}
+          {this.props.message.drafts.length ? (
+            <div>
+              {this.props.message.drafts.map(message => (
+                <SingleDraft data={message} />
+              ))}
+            </div>
+          ) : (
+            <div>
+              <p className="text-center">No Drafts yet</p>
+            </div>
+          )}
         </div>
         <div className="inbox__mail--item">
-          <SendMessage />
+          {Object.keys(this.props.message.currentDraft).length ? (
+            <SendMessage />
+          ) : (
+            <div>
+              <p className="text-center">No Message Selected</p>
+            </div>
+          )}
         </div>
       </section>
     );

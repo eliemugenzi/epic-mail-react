@@ -30,7 +30,7 @@ class Groups extends Component {
         <div className="groups__new">
           <form onSubmit={this.create}>
             <h2 className="text-center">Create a new Group</h2>
-            <div class="field">
+            <div className="field">
               <label htmlFor="">Group Name</label>
               <input
                 type="text"
@@ -40,7 +40,7 @@ class Groups extends Component {
               />
             </div>
             {this.props.ui.loading ? <Spinner /> : null}
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="Create" className="btn btn-primary" />
           </form>
         </div>
         <h2 className="text-center">Your Groups</h2>
@@ -48,7 +48,13 @@ class Groups extends Component {
           {this.props.group.groups.length ? (
             <div>
               {this.props.group.groups.map(group => (
-                <Link to={`/groups/${group.id}`}>
+                <Link
+                  to={`/groups/${group.id}`}
+                  key={group.id}
+                  style={{
+                    textDecoration: "none"
+                  }}
+                >
                   <GroupItem groupData={group} key={group.id} />
                 </Link>
               ))}

@@ -189,6 +189,7 @@ export const renameGroup = (id, groupInfo) => dispatch => {
   dispatch({
     type: LOADING
   });
+  console.log("Renaming...")
 
   fetch(`https://cors-anywhere.herokuapp.com/${RENAME_URL}`, {
     method: "PATCH",
@@ -204,6 +205,7 @@ export const renameGroup = (id, groupInfo) => dispatch => {
         type: STOP_LOADING
       });
       if (res.status === 200) {
+        console.log("Renamed")
         dispatch({
           type: GET_INFO,
           payload: "Group Renamed!"
@@ -219,7 +221,15 @@ export const renameGroup = (id, groupInfo) => dispatch => {
         });
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch({
+        type:STOP_LOADING
+      });
+      dispatch({
+        type:GET_ERRORS,
+        payload:"Unexpected error"
+      })
+    });
 };
 
 export const deleteGroup = id => dispatch => {

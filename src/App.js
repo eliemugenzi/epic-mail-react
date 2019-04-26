@@ -24,6 +24,7 @@ import GroupMember from "./components/layouts/GroupMember";
 import GroupMessages from "./components/layouts/GroupMessages";
 import GroupSettings from "./components/layouts/GroupSettings";
 import AuthCheck from "./components/widgets/AuthCheck";
+import Profile from "./components/layouts/Profile";
 
 const alertOptions = {
   timeout: 5000,
@@ -68,6 +69,7 @@ class App extends Component {
                   path="/groups/:id/settings"
                   component={GroupSettings}
                 />
+                <Route exact path="/profile" component={Profile}/>
               </Switch>
             </Fragment>
           </Router>

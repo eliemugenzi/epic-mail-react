@@ -24,10 +24,6 @@ export default class GroupMemberItem extends Component {
       .catch(err => console.log(err));
   };
 
-  static propTypes = {
-    prop: PropTypes
-  };
-
   render() {
     return (
       <div className="members__list--item">

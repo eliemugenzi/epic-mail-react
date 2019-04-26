@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { renameGroup, deleteGroup } from "../../redux/actions/groups.action";
+import Spinner from "../widgets/Spinner";
 
 class GroupSettings extends Component {
   constructor(props) {
@@ -61,6 +62,7 @@ class GroupSettings extends Component {
                     required
                   />
                 </div>
+                {this.props.ui.loading?<Spinner/>:null}
                 <button type="submit" className="btn btn-primary">
                   Rename
                 </button>

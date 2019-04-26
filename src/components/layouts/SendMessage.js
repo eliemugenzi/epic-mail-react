@@ -20,20 +20,22 @@ class SendMessage extends Component {
 
   componentDidMount = () => {
     const { currentDraft } = this.props.message;
-    const USER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/users/${
-      currentDraft.receiverid
-    }`;
-    fetch(`https://cors-anywhere.herokuapp.com/${USER_URL}`)
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 200) {
-          this.setState({
-            receiverEmail: res.data[0].email,
-            subject: currentDraft.subject,
-            message: currentDraft.message
-          });
-        }
-      });
+    if (Object.keys(currentDraft).length) {
+      const USER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/users/${
+        currentDraft.receiverid
+      }`;
+      fetch(`https://cors-anywhere.herokuapp.com/${USER_URL}`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.status === 200) {
+            this.setState({
+              receiverEmail: res.data[0].email,
+              subject: currentDraft.subject,
+              message: currentDraft.message
+            });
+          }
+        });
+    }
   };
 
   replyEmail = e => {

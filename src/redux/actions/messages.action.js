@@ -10,7 +10,8 @@ import {
   LOADING,
   STOP_LOADING,
   SET_CURR_MESSAGE,
-  SET_CURR_DRAFT
+  SET_CURR_DRAFT,
+  SET_CURR_SENT_MAIL
 } from "./types";
 
 export const getMessages = () => dispatch => {
@@ -153,19 +154,29 @@ export const getDrafts = () => dispatch => {
       dispatch({
         type: STOP_LOADING
       });
-      dispatch({
-        type: GET_DRAFTS,
-        payload: res.data
-      });
+      if (res.status === 200) {
+        dispatch({
+          type: GET_DRAFTS,
+          payload: res.data
+        });
+      }
+      else {
+        dispatch({
+          type:GET_ERRORS,
+          payload:res.error
+        })
+      }
+     
     })
     .catch(err => {
       dispatch({
-        type:STOP_LOADING
-      })
+        type: STOP_LOADING
+      });
       dispatch({
-        type:GET_ERRORS,
-        payload:"Unable to connect to the server,check your internet connection and try again!"
-      })
+        type: GET_ERRORS,
+        payload:
+          "Unable to connect to the server,check your internet connection and try again!"
+      });
     });
 };
 
@@ -182,12 +193,24 @@ export const getSentMails = () => dispatch => {
   })
     .then(res => res.json())
     .then(res => {
-      dispatch({
-        type: GET_SENT_MAILS,
-        payload: res.data
-      });
+      if (res.status === 200) {
+        dispatch({
+          type: GET_SENT_MAILS,
+          payload: res.data
+        });
+      } else {
+        dispatch({
+          type: GET_ERRORS,
+          payload: res.error
+        });
+      }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: "You're offline,check your internet connection and try again!"
+      });
+    });
 };
 
 export const saveMessage = message => dispatch => {
@@ -204,6 +227,7 @@ export const saveMessage = message => dispatch => {
   })
     .then(res => res.json())
     .then(res => {
+      console.log(res);
       if (res.status === 201) {
         dispatch({
           type: GET_INFO,
@@ -254,6 +278,13 @@ export const setCurrentMessage = message => dispatch => {
 export const setCurrentDraft = message => dispatch => {
   dispatch({
     type: SET_CURR_DRAFT,
+    payload: message
+  });
+};
+
+export const setCurrentSentMail = message => dispatch => {
+  dispatch({
+    type: SET_CURR_SENT_MAIL,
     payload: message
   });
 };

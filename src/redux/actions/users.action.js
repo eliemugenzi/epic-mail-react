@@ -158,7 +158,7 @@ export const logOut = () => {
   };
 };
 
-export const getCurrentUser = dispatch => {
+export const getCurrentUser =()=> dispatch => {
   dispatch({
     type: LOADING
   });
@@ -167,11 +167,12 @@ export const getCurrentUser = dispatch => {
   fetch(`https://cors-anywhere.herokuapp.com/${USER_URL}`, {
     headers: new Headers({
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
+      "Authorization": `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
     })
   })
     .then(res => res.json())
     .then(res => {
+      console.log(res);
       dispatch({
         type: STOP_LOADING
       });

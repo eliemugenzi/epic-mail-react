@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 export default class ContactItem extends Component {
   render() {
+    const { data } = this.props;
     return (
       <div className="contacts__list--item">
         <div className="contacts__list--item-picture">
@@ -11,7 +12,7 @@ export default class ContactItem extends Component {
           />
         </div>
         <div className="contacts__list--item-name">
-          <h4>Ineza Alphonsine</h4>
+          <h4>{`${data.firstname} ${data.lastname}`}</h4>
         </div>
       </div>
     );

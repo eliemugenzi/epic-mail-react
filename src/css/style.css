@@ -585,6 +585,42 @@ form .field textarea {
   padding: 20px;
   margin-bottom: 10px;
 }
+.grp-settings {
+  margin: auto 10%;
+}
+.grp-settings__container {
+  padding: 15px;
+  border: 1px solid #5b00d0;
+}
+.grp-settings__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+@media (max-width: 768px) {
+  .grp-settings__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.grp-settings__grid--item {
+  margin: auto 10%;
+  position: relative;
+}
+.profile {
+  margin: auto 10%;
+}
+.profile__container {
+  padding: 15px;
+}
+.profile__details {
+  border: 1px solid #5b00d0;
+}
+.profile__details--item {
+  border: 1px solid #ff7100;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
 body {
   margin: 0;
   padding: 0;

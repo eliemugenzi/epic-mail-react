@@ -13,7 +13,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      redirect:false
+      redirect: false
     };
   }
 
@@ -21,13 +21,13 @@ class Login extends Component {
     this.props.closeSlide();
   };
 
-  componentDidUpdate=prevProps=>{
+  componentDidUpdate = prevProps => {
     if (this.props.user.loggedIn) {
       this.setState({
-        redirect:true
-      })
+        redirect: true
+      });
     }
-  }
+  };
 
   login = e => {
     e.preventDefault();
@@ -39,12 +39,12 @@ class Login extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/messages/inbox"/>
+      return <Redirect to="/messages/inbox" />;
     }
     return (
       <section className="auth">
         <div className="auth__container">
-          <h4 class="text-center">Login with Epic Mail</h4>
+          <h4 className="text-center">Login with Epic Mail</h4>
           <form onSubmit={this.login}>
             <div className="field">
               <label>Email</label>
@@ -82,8 +82,8 @@ const mapStateToProps = state => ({
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  closeSlide:PropTypes.func.isRequired
-}
+  closeSlide: PropTypes.func.isRequired
+};
 
 export default connect(
   mapStateToProps,

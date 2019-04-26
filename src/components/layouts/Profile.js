@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -11,38 +11,18 @@ class Profile extends Component {
     currentUser: PropTypes.object
   };
 
-  componentWillMount = () => {
-    this.props.getCurrentUser();
+  componentDidMount = () => {
+    this.props.logOut();
+    window.location = "/";
   };
 
   logout = () => {
     this.props.logOut();
+    window.location = "/";
   };
 
   render() {
-    const { currentUser } = this.props.user;
-    return (
-      <section className="profile">
-        <div className="profile__container">
-          <h4 className="text-center">Your Profile</h4>
-          <div className="profile__details">
-            <div className="profile__details--item">
-              <h5>Names</h5>
-              <span>{`${currentUser.firstname} ${currentUser.lastname}`}</span>
-            </div>
-            <div className="profile__details--item">
-              <h5>Email</h5>
-              <span>{currentUser.email}</span>
-            </div>
-            <div className="profile__details--item">
-              <button className="btn btn-primary" onClick={this.logout}>
-                Log Out
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
+    return <Fragment />;
   }
 }
 

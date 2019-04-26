@@ -37,6 +37,7 @@ export default class GroupUser extends Component {
 
   render() {
     const { user } = this.props;
+    console.log(this.state);
     return (
       <div className="group__users--item">
         <div className="group__users--item-picture">

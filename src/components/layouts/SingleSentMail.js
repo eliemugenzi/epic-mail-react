@@ -1,7 +1,65 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-export default class SingleSentMail extends Component {
+import { deleteMessage } from "../../redux/actions/messages.action";
+class SingleSentMail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      senderNames: "",
+      senderEmail: "",
+      receiverNames: "",
+      receiverEmail: ""
+    };
+  }
+
+  componentDidUpdate = prevProps => {
+    const { currentSentMail } = this.props.message;
+    const SENDER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/users/${
+      currentSentMail.senderid
+    }`;
+    const RECEIVER_URL = `http://elie-epic-mail.herokuapp.com/api/v2/users/${
+      currentSentMail.receiverid
+    }`;
+
+    fetch(`https://cors-anywhere.herokuapp.com/${SENDER_URL}`)
+      .then(res => res.json())
+      .then(res => {
+        const user = res.data[0];
+        this.setState({
+          senderNames: `${user.firstname} ${user.lastname}`,
+          senderEmail: user.email
+        });
+      })
+      .catch(err => console.log(err));
+
+    fetch(`https://cors-anywhere.herokuapp.com/${RECEIVER_URL}`)
+      .then(res => res.json())
+      .then(res => {
+        const user = res.data[0];
+        this.setState({
+          receiverNames: `${user.firstname} ${user.lastname}`,
+          receiverEmail: user.email
+        });
+      });
+  };
+
+  deleteMessage = e => {
+    e.preventDefault();
+    const { id } = this.props.message.currentSentMail;
+    this.props.deleteMessage(id);
+  };
+
   render() {
+    const { currentSentMail } = this.props.message;
+    if (!Object.keys(currentSentMail).length) {
+      return (
+        <div>
+          <p className="text-center">No Message selected</p>
+        </div>
+      );
+    }
     return (
       <div className="inbox__mail--item">
         <header>
@@ -14,12 +72,16 @@ export default class SingleSentMail extends Component {
             </div>
             <div className="sender__details">
               <h6>
-                From:<strong>Elie</strong>
-                {"<"}eliemugenzi@epicmail.com{">"}
+                From:<strong>{this.state.senderNames}</strong>
+                {"<"}
+                {this.state.senderEmail}
+                {">"}
               </h6>
               <h6>
-                To:<strong>Samuel Adafia</strong>
-                {"<"}adafia@epicmail.com{">"}
+                To:<strong>{this.state.receiverNames}</strong>
+                {"<"}
+                {this.state.receiverEmail}
+                {">"}
               </h6>
             </div>
           </div>
@@ -30,23 +92,33 @@ export default class SingleSentMail extends Component {
             <a href="/#" className="btn__small btn-white">
               <i className="fa fa-step-backward" />
             </a>
-            <a href="/#" className="btn__small btn-white">
+            <a
+              href="/#"
+              className="btn__small btn-white"
+              onClick={this.deleteMessage}
+            >
               <i className="fa fa-trash" />
             </a>
           </div>
         </header>
-        <div class="inbox__mail--body">
-          <h3>Invitation to Andela Fellowship</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit in
-            architecto, natus ducimus rerum aut assumenda odio incidunt, quis,
-            beatae eligendi amet et nesciunt. Cumque laborum in dolorum
-            laudantium eaque repellat dolor deleniti error aliquam placeat harum
-            eveniet eius asperiores incidunt ratione a tenetur, et enim sunt!
-            Voluptatem, quibusdam adipisci.
-          </p>
+        <div className="inbox__mail--body">
+          <h3>{currentSentMail.subject}</h3>
+          <p>{currentSentMail.message}</p>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  message: state.message
+});
+SingleSentMail.propTypes = {
+  message: PropTypes.object.isRequired,
+  deleteMessage: PropTypes.func
+};
+
+export default connect(
+  mapStateToProps,
+  { deleteMessage }
+)(SingleSentMail);
