@@ -178,7 +178,7 @@ export const getGroupMessages = id => dispatch => {
       dispatch({
         type: GET_ERRORS,
         payload:
-          "Ypu're offline, check your internet connection and try again..."
+          "You're offline, check your internet connection and try again..."
       });
     });
 };
